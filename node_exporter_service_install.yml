@@ -1,0 +1,17 @@
+---
+- name: Downloading Node-Exporter docker image
+  docker_image:
+    name: quay.io/prometheus/node-exporter:latest
+    state: present
+
+- name: Start Node-Exporter-Service Container
+  docker_container:
+    name: node-exporter-service
+    image: quay.io/prometheus/node-exporter:latest
+    restart_policy: unless-stopped
+    published_ports: 9110:9100
+    volumes:
+      - "/run/systemd:/run/systemd:ro"
+      - "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro"
+    command: -collectors.enabled=systemd
+    state: started

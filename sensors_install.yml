@@ -1,0 +1,14 @@
+---
+- name: Downloading SensorsDocker image
+  docker_image:
+    name: shakapark/sensorsdocker:latest
+    state: present
+
+- name: Start Sensors Container
+  docker_container:
+    name: sensors
+    image: shakapark/sensorsdocker:latest
+    restart_policy: unless-stopped
+    volumes:
+      - "/home/docker_share/node_exporter:/home/node-exporter:rw"
+    state: started

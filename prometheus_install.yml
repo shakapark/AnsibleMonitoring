@@ -1,0 +1,29 @@
+---
+- name: Downloading Prometheus docker image
+  docker_image:
+    name: quay.io/prometheus/prometheus:latest
+    state: present
+
+- name: Create Share Folder
+  become: true
+  file:
+    path: /home/docker_share/prometheus
+    mode: 0755
+    state: directory
+
+- name: Copie conf file for Prometheus
+  become: true
+  template:
+    src: conf/prometheus/prometheus.yml
+    dest: /home/docker_share/prometheus/prometheus.yml
+    mode: 0644
+
+- name: Start Prometheus Container
+  docker_container:
+    name: prometheus
+    image: quay.io/prometheus/prometheus:latest
+    volumes: 
+      - "/home/docker_share/prometheus/:/etc/prometheus/:rw"
+    restart_policy: unless-stopped
+    published_ports: 9090:9090
+    state: started

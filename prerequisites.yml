@@ -1,0 +1,56 @@
+---
+- name: Installing wget
+  become: true
+  apt:
+    name: wget
+    state: present
+
+- name: Installing Python Pip
+  become: true
+  apt:
+    name: python-pip
+    state: present
+
+- name: Checking if Docker is installed
+  shell: which docker
+  register: has_docker
+  ignore_errors: yes
+
+- name: Installing latest Docker
+  shell: "wget -qO- https://get.docker.io | bash"
+  become: true
+  when: has_docker|failed
+
+- name: Adding current user to the Docker group
+  become: true
+  user:
+    name: "{{ ansible_user }}"
+    append: yes
+    groups: docker
+  when: has_docker|failed
+
+- name: Configuring Docker (systemd)
+  become: true
+  ini_file:
+    dest: /lib/systemd/system/docker.service
+    section: Service
+    option: ExecStart
+    value: "/usr/bin/dockerd"
+    backup: yes
+
+- name: Restarting Docker
+  become: true
+  service:
+    name: docker
+    state: restarted
+
+- name: Install docker-py
+  become: true
+  shell: "pip install docker-py"
+    
+- name: Create Share Folder
+  become: true
+  file:
+    path: /home/docker_share
+    mode: 0755
+    state: directory

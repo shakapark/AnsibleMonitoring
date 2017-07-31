@@ -1,0 +1,26 @@
+---
+- name: Downloading Node-Exporter docker image
+  docker_image:
+    name: quay.io/prometheus/node-exporter:latest
+    state: present
+
+- name: Create Share Folder
+  become: true
+  file:
+    path: /home/docker_share/node_exporter
+    mode: 0755
+    state: directory
+
+- name: Start Node-Exporter Container
+  docker_container:
+    name: node-exporter
+    image: quay.io/prometheus/node-exporter:latest
+    restart_policy: unless-stopped
+    network_mode: host
+    volumes: 
+      - "/proc:/host/proc:ro"
+      - "/sys:/host/sys:ro"
+      - "/:/rootfs:ro"
+      - "/home/docker_share/node_exporter:/etc/prometheus/node_exporter:ro"
+    command: -collector.procfs /host/proc -collector.sysfs /host/sys -collector.filesystem.ignored-mount-points "^/(sys|proc|dev|host|etc)($|/)" -collector.textfile.directory="/etc/prometheus/node_exporter/"
+    state: started

@@ -1,0 +1,36 @@
+---
+- name: Downloading Grafana docker image
+  docker_image:
+    name: grafana/grafana:latest
+    state: present
+
+- name: Create Share Folder
+  become: true
+  file:
+    path: /home/docker_share/grafana
+    mode: 0755
+    state: directory
+
+- name: Start Grafana Container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    restart_policy: unless-stopped
+    volumes:
+      - "/home/docker_share/grafana/:/etc/grafana/:rw"
+    published_ports: 3000:3000
+    state: started
+
+- name: Configuration Grafana 1/2
+  command: docker cp conf/grafana/grafana_modele.db grafana:/var/lib/grafana/grafana.db
+
+- name: Configuration Grafana 2/2
+  become: true
+  template:
+    src: conf/grafana/grafana.ini
+    dest: /home/docker_share/grafana/grafana.ini
+    mode: 0644
+
+- name: Restarting Grafana
+  command: docker restart grafana
+  
