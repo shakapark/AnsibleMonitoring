@@ -21,5 +21,5 @@ You can change too the grafana configuration ("grafana.ini")
 
 Monitoring Installation
 ~~~ shell
-$ ansible-playbook -Ki hosts install.yml
+$ ansible-playbook -i hosts install.yml
 ~~~
