@@ -16,7 +16,13 @@ $ cd AnsibleMonitoring
 Configuration:
 
 Change the file "hosts" : for all machines, change ip address, ssh port if needed, user name of the remote machine and password or private key for ssh connection.
+~~~ shell
+[local]
+127.0.0.1 ansible_connection=ssh ansible_port=22 ansible_user=example ansible_become_pass=passwd # ansible_ssh_pass=passwd or ansible_ssh_private_key_file=/.../example.pem
 
+[distant]
+<IpNode1> ansible_connection=ssh ansible_port=22 ansible_user=example ansible_become_pass=passwd # ansible_ssh_pass=passwd or ansible_ssh_private_key_file=/.../example.pem
+~~~
 In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install).
 
 In 'conf' folder, you must change the prometheus configuration ("prometheus.yml") to monitor remote machine (change 'IpNode1' by an ip address that the monitoring server can contact, add more if you want).
