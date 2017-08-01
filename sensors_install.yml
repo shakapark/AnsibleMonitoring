@@ -6,6 +6,7 @@
     state: present
 
 - name: Start Sensors Container
+  become: true
   docker_container:
     name: sensors
     image: shakapark/sensorsdocker:latest

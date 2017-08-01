@@ -20,6 +20,7 @@
     mode: 0644
 
 - name: Start Prometheus Container
+  become: true
   docker_container:
     name: prometheus
     image: quay.io/prometheus/prometheus:latest

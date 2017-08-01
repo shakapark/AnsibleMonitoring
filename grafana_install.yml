@@ -13,6 +13,7 @@
     state: directory
 
 - name: Start Grafana Container
+  become: true
   docker_container:
     name: grafana
     image: grafana/grafana:latest
@@ -28,6 +29,7 @@
     dest: /tmp/AnsibleMonitoring
 
 - name: Configuration Grafana 1/2
+  become: true
   command: docker cp /tmp/AnsibleMonitoring/conf/grafana/grafana_modele.db grafana:/var/lib/grafana/grafana.db
 
 - name: Configuration Grafana 2/2
@@ -38,5 +40,6 @@
     mode: 0644
 
 - name: Restarting Grafana
+  become: true
   command: docker restart grafana
   

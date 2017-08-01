@@ -6,6 +6,7 @@
    state: present
 
 - name: Start cAdvisor Container
+  become: true
   docker_container:
     name: cadvisor
     image: google/cadvisor:latest

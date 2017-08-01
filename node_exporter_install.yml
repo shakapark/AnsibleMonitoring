@@ -13,6 +13,7 @@
     state: directory
 
 - name: Start Node-Exporter Container
+  become: true
   docker_container:
     name: node-exporter
     image: quay.io/prometheus/node-exporter:latest
