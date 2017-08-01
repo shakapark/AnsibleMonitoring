@@ -1,5 +1,6 @@
 ---
 - name: Downloading Prometheus docker image
+  become: true
   docker_image:
     name: quay.io/prometheus/prometheus:latest
     state: present

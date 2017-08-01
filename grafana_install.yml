@@ -1,5 +1,6 @@
 ---
 - name: Downloading Grafana docker image
+  become: true
   docker_image:
     name: grafana/grafana:latest
     state: present

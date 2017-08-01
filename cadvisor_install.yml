@@ -1,5 +1,6 @@
 ---
 - name: Downloading cAdvisor docker image
+  become: true
   docker_image:
    name: google/cadvisor:latest
    state: present

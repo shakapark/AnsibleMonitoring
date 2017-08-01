@@ -1,5 +1,6 @@
 ---
 - name: Downloading SensorsDocker image
+  become: true
   docker_image:
     name: shakapark/sensorsdocker:latest
     state: present

@@ -1,5 +1,6 @@
 ---
 - name: Downloading Node-Exporter docker image
+  become: true
   docker_image:
     name: quay.io/prometheus/node-exporter:latest
     state: present
