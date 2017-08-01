@@ -18,10 +18,10 @@ Configuration:
 Change the file "hosts" : for all machines, change ip address, ssh port if needed, user name of the remote machine and password or private key for ssh connection.
 ~~~ shell
 [local]
-127.0.0.1 ansible_connection=ssh ansible_port=22 ansible_user=example ansible_become_pass=passwd # ansible_ssh_pass=passwd or ansible_ssh_private_key_file=/.../example.pem
+127.0.0.1 ansible_connection=ssh ansible_port=22 ansible_user=toto ansible_become_pass=Bonjour123 ansible_ssh_private_key_file=/home/toto/PrivKey.pem
 
 [distant]
-<IpNode1> ansible_connection=ssh ansible_port=22 ansible_user=example ansible_become_pass=passwd # ansible_ssh_pass=passwd or ansible_ssh_private_key_file=/.../example.pem
+192.168.1.10 ansible_connection=ssh ansible_port=22 ansible_user=tetu ansible_become_pass=Bonjour456 ansible_ssh_private_key_file=/home/tetu/PrivKey2.pem
 ~~~
 In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install).
 
