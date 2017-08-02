@@ -9,6 +9,10 @@ The Optional dockers are use to get metrics on the machine :
 - SensorsDocker : Get temperature of processor
 - Snmp Exporter : Get results of snmp request (NOT IMPLEMENTED YET)
 
+Prometheus collect those metrics and add a system of request
+
+Grafana use prometheus requests to create graphs. 
+
 ### Dockers Links
 
 |  Docker Name  | Description  |
