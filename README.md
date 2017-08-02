@@ -1,7 +1,6 @@
 # AnsibleMonitoring
 ## Description
 ![Alt text](/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
-https://github.com/shakapark/AnsibleMonitoring/blob/master/Sch%C3%A9ma%20Monitoring.png
 ## Installation (on Remote Server)
 ~~~ shell
 $ sudo apt-get install ssh
