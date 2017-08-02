@@ -104,8 +104,8 @@ You can change too the grafana configuration ("grafana.ini")
 The ports 3000 (grafana), 8090 (cAdvisor), 9090 (Prometheus), 9100 (Node-exporter), 9110 (Node-exporter Service), 9116 (Snmp-Exporter) are use by this system, make sure thy are free, if needed, you can change the port use by a docker in the install file of it. Example for cAdvisor (*cadvisor_install.yml*):
 ~~~ shell
 restart_policy: unless-stopped
-#published_ports: 8090:8080
-published_ports: >9000<:8080
+#published_ports: 8090:8080    #ExternePort:InternPort
+published_ports: 9000:8080     #ExternePort:InternPort
 volumes: 
 ~~~
 
