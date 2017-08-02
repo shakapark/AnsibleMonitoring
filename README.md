@@ -2,13 +2,19 @@
 ## Description
 ![Schéma Monitoring](/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
 
-### Dockers Description
+The Optional dockers are use to get metrics on the machine :
+- cAdvisor : Get metrics about containers
+- Node-Exporter : Get hardware metrics of the machine 
+- Node-Exporter Service : Get state about Systemd
+- SensorsDocker : Get temperature of processor
+- Snmp Exporter : Get results of snmp request (NOT IMPLEMENTED YET)
 
-|  Docker Name  | Description   |
+### Dockers Links
+
+|  Docker Name  | Description  |
 | ------------- | ------------- |
-| cAdvisor  | https://github.com/google/cadvisor  |
-| Node-Exporter |  https://github.com/prometheus/node_exporter  |
-| Node-Exporter Service | [Node-Exporter](https://github.com/prometheus/node_exporter) for Systemd Monitoring |
+| cAdvisor  | https://github.com/google/cadvisor |
+| Node-Exporter |  https://github.com/prometheus/node_exporter |
 | SensorsDocker | https://github.com/Shakapark/SensorsDocker |
 | Snmp Exporter | https://github.com/prometheus/snmp_exporter |
 | Prometheus | https://github.com/prometheus/prometheus |
