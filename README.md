@@ -30,9 +30,9 @@ In the file install.yml, you can modify your installation by comment or supress 
   tasks: 
     - include: prerequisites.yml 
     - include: node_exporter_install.yml 
-\#    - include: node_exporter_service_install.yml 
+#    - include: node_exporter_service_install.yml 
     - include: sensors_install.yml 
-\#    - include: cadvisor_install.yml 
+#    - include: cadvisor_install.yml 
     - include: prometheus_install.yml 
     - include: grafana_install.yml 
 
