@@ -24,7 +24,28 @@ Change the file "hosts" : for all machines, change ip address, ssh port if neede
 192.168.1.10 ansible_connection=ssh ansible_port=22 ansible_user=tetu ansible_become_pass=Bonjour456 ansible_ssh_private_key_file=/home/tetu/PrivKey2.pem
 ~~~
 In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install).
+~~~ shell
+- hosts: local 
+  name: Installing monitoring server 
+  tasks: 
+    - include: prerequisites.yml 
+    - include: node_exporter_install.yml 
+\#    - include: node_exporter_service_install.yml 
+    - include: sensors_install.yml 
+\#    - include: cadvisor_install.yml 
+    - include: prometheus_install.yml 
+    - include: grafana_install.yml 
 
+- hosts: distant 
+  name: Installing Distant Exporter 
+  tasks: 
+    - include: prerequisites.yml 
+    - include: node_exporter_install.yml 
+    - include: node_exporter_service_install.yml 
+    - include: sensors_install.yml 
+    - include: cadvisor_install.yml 
+
+~~~
 In 'conf' folder, you must change the prometheus configuration ("prometheus.yml") to monitor remote machine (change 'IpNode1' by an ip address that the monitoring server can contact, add more if you want).
 
 You can change too the grafana configuration ("grafana.ini")
