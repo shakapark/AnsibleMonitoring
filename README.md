@@ -28,7 +28,7 @@ $ git clone https://github.com/shakapark/AnsibleMonitoring/
 $ cd AnsibleMonitoring
 ~~~
 
-Configuration:
+### Configuration:
 
 Change the file "hosts" : for all machines, change ip address, ssh port if needed, user name of the remote machine and password or private key for ssh connection.
 Example:
@@ -91,7 +91,7 @@ scrape_configs:
 
 You can change too the grafana configuration ("grafana.ini")
 
-Monitoring Installation
+### Monitoring Installation
 ~~~ shell
 $ ansible-playbook -i hosts install.yml
 ~~~
