@@ -47,6 +47,29 @@ In the file install.yml, you can modify your installation by comment or supress 
 
 ~~~
 In 'conf' folder, you must change the prometheus configuration ("prometheus.yml") to monitor remote machine (change 'IpNode1' by an ip address that the monitoring server can contact, add more if you want).
+~~~ shell
+global:
+ scrape_interval: 15s
+
+scrape_configs:
+ - job_name: prometheus
+   static_configs:
+    - targets: ['localhost:9090']
+
+ - job_name: node
+   metrics_path: /metrics
+   static_configs:
+    - targets: ['192.168.1.9:9100','192.168.1.10:9100',...]
+ 
+ - job_name: service
+   metrics_path: /metrics
+   static_configs:
+    - targets: ['192.168.1.9:9110','192.168.1.10:9110',...]
+
+ - job_name: cadvisor
+   static_configs:
+     - targets: ['192.168.1.9:8090','192.168.1.10:8090',...]
+~~~
 
 You can change too the grafana configuration ("grafana.ini")
 
