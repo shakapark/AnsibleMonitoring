@@ -105,7 +105,7 @@ The ports 3000 (grafana), 8090 (cAdvisor), 9090 (Prometheus), 9100 (Node-exporte
 ~~~ shell
 restart_policy: unless-stopped
 #published_ports: 8090:8080
-published_ports: <span style="color: #fb4141">9000</span>:8080
+published_ports: >9000<:8080
 volumes: 
 ~~~
 
