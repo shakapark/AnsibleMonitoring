@@ -1,6 +1,6 @@
 # AnsibleMonitoring
 ## Description
-![Schéma Monitoring](/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
+![Schéma Monitoring](Screens/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
 
 The Optional dockers are use to get metrics on the machine :
 - cAdvisor : Get metrics about containers
@@ -14,6 +14,7 @@ Prometheus collect those metrics and add a system of request
 Grafana use prometheus requests to create graphs. 
 
 ### Dockers Links
+
 |  Docker Name  | Description  |
 | ------------- | ------------- |
 | cAdvisor  | https://github.com/google/cadvisor |
@@ -114,3 +115,5 @@ You will need to change too the configuration of Prometheus.
 ~~~ shell
 $ ansible-playbook -i hosts install.yml
 ~~~
+
+Once the install is finished, you can connect to the prometheus interface by http://IpHost:9090 to verify it receive data, then you can connect to the grafana interface http://IpHost:3000 **Login: admin / mdp: admin**. To show the graphs, change the variable of all dashboard to correspond to prometheus configuration:
