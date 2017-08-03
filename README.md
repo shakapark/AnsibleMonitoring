@@ -1,12 +1,28 @@
 # AnsibleMonitoring
 ## Description
-![Alt text](/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
-Dockers Description
+![Schéma Monitoring](/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
 
-|  Docker Name  | Description   |
+The Optional dockers are use to get metrics on the machine :
+- cAdvisor : Get metrics about containers
+- Node-Exporter : Get hardware metrics of the machine 
+- Node-Exporter Service : Get state about Systemd
+- SensorsDocker : Get temperature of processor
+- Snmp Exporter : Get results of snmp request (NOT IMPLEMENTED YET)
+
+Prometheus collect those metrics and add a system of request
+
+Grafana use prometheus requests to create graphs. 
+
+### Dockers Links
+|  Docker Name  | Description  |
 | ------------- | ------------- |
-| cAdvisor  | https://github.com/google/cadvisor  |
-| Node-Exporter |  https://github.com/prometheus/node_exporter  |
+| cAdvisor  | https://github.com/google/cadvisor |
+| Node-Exporter |  https://github.com/prometheus/node_exporter |
+| SensorsDocker | https://github.com/Shakapark/SensorsDocker |
+| Snmp Exporter | https://github.com/prometheus/snmp_exporter |
+| Prometheus | https://github.com/prometheus/prometheus |
+| Grafana | https://github.com/grafana/grafana |
+
 ## Installation (on Remote Server)
 ~~~ shell
 $ sudo apt-get install ssh
@@ -21,9 +37,10 @@ $ git clone https://github.com/shakapark/AnsibleMonitoring/
 $ cd AnsibleMonitoring
 ~~~
 
-Configuration:
+### Configuration:
 
 Change the file "hosts" : for all machines, change ip address, ssh port if needed, user name of the remote machine and password or private key for ssh connection.
+Example:
 ~~~ shell
 [local]
 127.0.0.1 ansible_connection=ssh ansible_port=22 ansible_user=toto ansible_become_pass=Bonjour123 ansible_ssh_private_key_file=/home/toto/PrivKey.pem
@@ -32,6 +49,7 @@ Change the file "hosts" : for all machines, change ip address, ssh port if neede
 192.168.1.10 ansible_connection=ssh ansible_port=22 ansible_user=tetu ansible_become_pass=Bonjour456 ansible_ssh_private_key_file=/home/tetu/PrivKey2.pem
 ~~~
 In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install).
+Example:
 ~~~ shell
 - hosts: local 
   name: Installing monitoring server 
@@ -55,6 +73,7 @@ In the file install.yml, you can modify your installation by comment or supress 
 
 ~~~
 In 'conf' folder, you must change the prometheus configuration ("prometheus.yml") to monitor remote machine (change 'IpNode1' by an ip address that the monitoring server can contact, add more if you want).
+Example:
 ~~~ shell
 global:
  scrape_interval: 15s
@@ -81,7 +100,17 @@ scrape_configs:
 
 You can change too the grafana configuration ("grafana.ini")
 
-Monitoring Installation
+The ports 3000 (grafana), 8090 (cAdvisor), 9090 (Prometheus), 9100 (Node-exporter), 9110 (Node-exporter Service), 9116 (Snmp-Exporter) are use by this system, make sure thy are free, if needed, you can change the port use by a docker in the install file of it. Example for cAdvisor (*cadvisor_install.yml*):
+~~~ shell
+restart_policy: unless-stopped
+#published_ports: 8090:8080    #ExternePort:InternPort
+published_ports: 9000:8080     #ExternePort:InternPort
+volumes: 
+~~~
+
+You will need to change too the configuration of Prometheus.
+
+### Monitoring Installation
 ~~~ shell
 $ ansible-playbook -i hosts install.yml
 ~~~
