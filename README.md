@@ -117,3 +117,5 @@ $ ansible-playbook -i hosts install.yml
 ~~~
 
 Once the install is finished, you can connect to the prometheus interface by http://IpHost:9090 to verify it receive data, then you can connect to the grafana interface http://IpHost:3000 **Login: admin / mdp: admin**. To show the graphs, change the variable of all dashboard to correspond to prometheus configuration:
+![Screen 1](Screens/Capture%20du%202017-08-03%2010-48-48.png?raw=true "Screen 1")
+![Screen 2](Screens/Capture%20du%202017-08-03%2010-55-10.png?raw=true "Screen 2")
