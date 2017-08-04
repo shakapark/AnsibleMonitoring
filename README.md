@@ -49,7 +49,7 @@ Example:
 [distant]
 192.168.1.10 ansible_connection=ssh ansible_port=22 ansible_user=tetu ansible_become_pass=Bonjour456 ansible_ssh_private_key_file=/home/tetu/PrivKey2.pem
 ~~~
-In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install).
+In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install) (SensorsDocker need Node-Exporter).
 Example:
 ~~~ shell
 - hosts: local 
@@ -74,6 +74,7 @@ Example:
 
 ~~~
 In 'conf' folder, you must change the prometheus configuration ("prometheus.yml") to monitor remote machine (change 'IpNode1' by an ip address that the monitoring server can contact, add more if you want).
+
 Example:
 ~~~ shell
 global:
