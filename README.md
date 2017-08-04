@@ -49,6 +49,12 @@ Example:
 [distant]
 192.168.1.10 ansible_connection=ssh ansible_port=22 ansible_user=tetu ansible_become_pass=Bonjour456 ansible_ssh_private_key_file=/home/tetu/PrivKey2.pem
 ~~~
+
+If you don't want to use the sudo password in the hosts file ("ansible_become_pass"), you can disable the password for the command sudo. For that, edit the file "/etc/sudoers" and add a line for the users you have put in hosts file (for each machine).
+~~~ shell
+#includedir /etc/sudoers.d
+toto ALL=(ALL) NOPASSWD:ALL
+~~~
 In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install) (SensorsDocker need Node-Exporter).
 Example:
 ~~~ shell
