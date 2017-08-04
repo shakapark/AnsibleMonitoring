@@ -88,16 +88,16 @@ scrape_configs:
  - job_name: node
    metrics_path: /metrics
    static_configs:
-    - targets: ['192.168.1.9:9100','192.168.1.10:9100',...]
+    - targets: ['192.168.1.9:9100','192.168.1.10:9100']
  
  - job_name: service
    metrics_path: /metrics
    static_configs:
-    - targets: ['192.168.1.9:9110','192.168.1.10:9110',...]
+    - targets: ['192.168.1.9:9110','192.168.1.10:9110']
 
  - job_name: cadvisor
    static_configs:
-     - targets: ['192.168.1.9:8090','192.168.1.10:8090',...]
+     - targets: ['192.168.1.9:8090','192.168.1.10:8090']
 ~~~
 
 You can change too the grafana configuration ("grafana.ini")
