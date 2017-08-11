@@ -18,6 +18,7 @@
     name: snmp
     image: quay.io/prometheus/snmp-exporter:latest
     restart_policy: unless-stopped
+    published_ports: 9116:9116
     volumes:
       - "/home/docker_share/snmp:/etc/snmp_exporter:rw"
     state: started
