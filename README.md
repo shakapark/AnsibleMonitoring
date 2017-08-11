@@ -1,6 +1,6 @@
 # AnsibleMonitoring
 ## Description
-![Schéma Monitoring](/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
+![Schéma Monitoring](Screens/Sch%C3%A9ma%20Monitoring.png?raw=true "Schéma Monitoring")
 
 The Optional dockers are use to get metrics on the machine :
 - cAdvisor : Get metrics about containers
@@ -14,6 +14,7 @@ Prometheus collect those metrics and add a system of request
 Grafana use prometheus requests to create graphs. 
 
 ### Dockers Links
+
 |  Docker Name  | Description  |
 | ------------- | ------------- |
 | cAdvisor  | https://github.com/google/cadvisor |
@@ -48,7 +49,13 @@ Example:
 [distant]
 192.168.1.10 ansible_connection=ssh ansible_port=22 ansible_user=tetu ansible_become_pass=Bonjour456 ansible_ssh_private_key_file=/home/tetu/PrivKey2.pem
 ~~~
-In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install).
+
+If you don't want to use the sudo password in the hosts file ("ansible_become_pass"), you can disable it for the command sudo. For that, edit the file "/etc/sudoers" and add a line for the users you have put in hosts file (on each machine).
+~~~ shell
+#includedir /etc/sudoers.d
+toto ALL=(ALL) NOPASSWD:ALL
+~~~
+In the file install.yml, you can modify your installation by comment or supress the line you don't need (prerequisites.yml, prometheus_install.yml and grafana_install.yml must be install) (SensorsDocker need Node-Exporter).
 Example:
 ~~~ shell
 - hosts: local 
@@ -73,6 +80,7 @@ Example:
 
 ~~~
 In 'conf' folder, you must change the prometheus configuration ("prometheus.yml") to monitor remote machine (change 'IpNode1' by an ip address that the monitoring server can contact, add more if you want).
+
 Example:
 ~~~ shell
 global:
@@ -86,16 +94,16 @@ scrape_configs:
  - job_name: node
    metrics_path: /metrics
    static_configs:
-    - targets: ['192.168.1.9:9100','192.168.1.10:9100',...]
+    - targets: ['192.168.1.9:9100','192.168.1.10:9100']
  
  - job_name: service
    metrics_path: /metrics
    static_configs:
-    - targets: ['192.168.1.9:9110','192.168.1.10:9110',...]
+    - targets: ['192.168.1.9:9110','192.168.1.10:9110']
 
  - job_name: cadvisor
    static_configs:
-     - targets: ['192.168.1.9:8090','192.168.1.10:8090',...]
+     - targets: ['192.168.1.9:8090','192.168.1.10:8090']
 ~~~
 
 You can change too the grafana configuration ("grafana.ini")
@@ -114,3 +122,8 @@ You will need to change too the configuration of Prometheus.
 ~~~ shell
 $ ansible-playbook -i hosts install.yml
 ~~~
+
+Once the install is finished, you can connect to the prometheus interface by http://IpHost:9090 to verify it receive data, then you can connect to the grafana interface http://IpHost:3000 **Login: admin / mdp: admin**. To show the graphs, change the variable of all dashboard to correspond to prometheus configuration:
+![Screen 1](Screens/Capture%20du%202017-08-03%2010-48-48.png?raw=true "Screen 1")
+Put the same IP address that Prometheus configuration. 
+![Screen 2](Screens/Capture%20du%202017-08-03%2010-55-10.png?raw=true "Screen 2")
