@@ -1,0 +1,23 @@
+---
+- name: Downloading Snmp-Exporter image
+  become: true
+  docker_image:
+    name: quay.io/prometheus/snmp-exporter:latest
+    state: present
+
+- name: Create Share Folder
+  become: true
+  file:
+    path: /home/docker_share/snmp
+    mode: 0755
+    state: directory
+
+- name: Start Snmp-Exporter Container
+  become: true
+  docker_container:
+    name: snmp
+    image: quay.io/prometheus/snmp-exporter:latest
+    restart_policy: unless-stopped
+    volumes:
+      - "/home/docker_share/snmp:/etc/snmp_exporter:rw"
+    state: started
