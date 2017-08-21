@@ -23,19 +23,19 @@
     published_ports: 3000:3000
     state: started
 
-- name: Downloading Grafana Configuration
-  git:
-    repo: https://github.com/shakapark/AnsibleMonitoring.git
-    dest: /tmp/AnsibleMonitoring
+- name: Transfers Grafana Database
+  template:
+    src: conf/grafana/grafana_modele.db
+    dest: /tmp
 
 - name: Configuration Grafana 1/2
   become: true
-  command: docker cp /tmp/AnsibleMonitoring/conf/grafana/grafana_modele.db grafana:/var/lib/grafana/grafana.db
+  command: docker cp tmp/grafana_modele.db grafana:/var/lib/grafana/grafana.db
 
 - name: Configuration Grafana 2/2
   become: true
   template:
-    src: /tmp/AnsibleMonitoring/conf/grafana/grafana.ini
+    src: conf/grafana/grafana.ini
     dest: /home/docker_share/grafana/grafana.ini
     mode: 0644
 
