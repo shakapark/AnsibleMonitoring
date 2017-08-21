@@ -24,13 +24,13 @@
     state: started
 
 - name: Transfers Grafana Database
-  template:
+  copy:
     src: conf/grafana/grafana_modele.db
     dest: /tmp
 
 - name: Configuration Grafana 1/2
   become: true
-  command: docker cp tmp/grafana_modele.db grafana:/var/lib/grafana/grafana.db
+  command: docker cp /tmp/grafana_modele.db grafana:/var/lib/grafana/grafana.db
 
 - name: Configuration Grafana 2/2
   become: true
