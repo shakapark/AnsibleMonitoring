@@ -5,10 +5,17 @@
     name: grafana/grafana:latest
     state: present
 
-- name: Create Share Folder
+- name: Create Share Folder 1/2
   become: true
   file:
     path: /home/docker_share/grafana
+    mode: 0755
+    state: directory
+
+- name: Create Share Folder 2/2
+  become: true
+  file:
+    path: /home/docker_share/data/grafana
     mode: 0755
     state: directory
 
@@ -20,17 +27,15 @@
     restart_policy: unless-stopped
     volumes:
       - "/home/docker_share/grafana/:/etc/grafana/:rw"
+      - "/home/docker_share/data/grafana/:/var/lib/grafana/:rw"
     published_ports: 3000:3000
     state: started
 
-- name: Transfers Grafana Database
-  copy:
-    src: conf/grafana/grafana_modele.db
-    dest: /tmp
-
 - name: Configuration Grafana 1/2
   become: true
-  command: docker cp /tmp/grafana_modele.db grafana:/var/lib/grafana/grafana.db
+  copy:
+    src: conf/grafana/grafana_modele.db
+    dest: /home/docker_share/data/grafana/grafana.db
 
 - name: Configuration Grafana 2/2
   become: true

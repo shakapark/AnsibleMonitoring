@@ -5,10 +5,17 @@
     name: quay.io/prometheus/prometheus:latest
     state: present
 
-- name: Create Share Folder
+- name: Create Share Folder 1/2
   become: true
   file:
     path: /home/docker_share/prometheus
+    mode: 0755
+    state: directory
+
+- name: Create Share Folder 2/2
+  become: true
+  file:
+    path: /home/docker_share/data/prometheus
     mode: 0755
     state: directory
 
@@ -26,6 +33,7 @@
     image: quay.io/prometheus/prometheus:latest
     volumes: 
       - "/home/docker_share/prometheus/:/etc/prometheus/:rw"
+      - "/home/docker_share/data/prometheus/:/prometheus/:rw"
     restart_policy: unless-stopped
     published_ports: 9090:9090
     state: started
