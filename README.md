@@ -128,16 +128,45 @@ Once the install is finished, you can connect to the prometheus interface by htt
 Put the same IP address that Prometheus configuration. 
 ![Screen 2](Screens/Capture%20du%202017-08-03%2010-55-10.png?raw=true "Screen 2")
 
+
 ## Update Container
 
-If you want to update a container without data (like Node-Exporter, cAdvisor...), begin to stop the container then suppress it :
+If you want to update a container without data (Node-Exporter, cAdvisor...), begin to stop the container then remove it :
 ~~~ shell
 $ docker ps    #(To show the names of active containers) 
 $ docker stop <container_name>
 $ docker rm <container_name>
 ~~~
-Next, suppress the Docker image :  
+Next, remove the Docker image :  
 ~~~ shell
 $ docker images #(To show the list of images)
 $ docker rmi <image_name>
+~~~
+
+
+For Prometheus and Grafana Datas, the last Script version save it in */home/docker_share/data/* so you just need to apply previous comands.
+
+If you have installed an older version, you need to save it manually.
+
+For Grafana :
+~~~ shell
+$ docker cp grafana:/var/lib/grafana/grafana.db /home/docker_share/data/grafana/grafana.db
+~~~
+
+For Prometheus :
+~~~ shell
+$ docker cp prometheus:/prometheus /home/docker_share/data/
+~~~
+
+Next, apply the command to remove container and image. 
+
+To reinstall containers, change *install.yml* file then apply this Ansible script. 
+
+For Grafana, comment the following lines of *grafana_install.yml* :
+~~~ shell
+#- name: Configuration Grafana 1/2
+#  become: true
+#  copy:
+#    src: conf/grafana/grafana_modele.db
+#    dest: /home/docker_share/data/grafana/grafana.db
 ~~~
