@@ -127,3 +127,17 @@ Once the install is finished, you can connect to the prometheus interface by htt
 ![Screen 1](Screens/Capture%20du%202017-08-03%2010-48-48.png?raw=true "Screen 1")
 Put the same IP address that Prometheus configuration. 
 ![Screen 2](Screens/Capture%20du%202017-08-03%2010-55-10.png?raw=true "Screen 2")
+
+## Update Container
+
+If you want to update a container without data (like Node-Exporter, cAdvisor...), begin to stop the container then suppress it :
+~~~ shell
+$ docker ps    #(To show the names of active containers) 
+$ docker stop <container_name>
+$ docker rm <container_name>
+~~~
+Next, suppress the Docker image :  
+~~~ shell
+$ docker images #(To show the list of images)
+$ docker rmi <image_name>
+~~~
