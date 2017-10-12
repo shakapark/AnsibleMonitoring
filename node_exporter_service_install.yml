@@ -9,7 +9,7 @@
   become: true
   docker_container:
     name: node-exporter-service
-    image: quay.io/prometheus/node-exporter:latest
+    image: quay.io/prometheus/node-exporter:v0.14.0
     restart_policy: unless-stopped
     published_ports: 9110:9100
     volumes:
