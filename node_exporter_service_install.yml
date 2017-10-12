@@ -15,5 +15,5 @@
     volumes:
       - "/run/systemd:/run/systemd:ro"
       - "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro"
-    command: -collectors.enabled=systemd
+    command: --collectors.enabled=systemd
     state: started
