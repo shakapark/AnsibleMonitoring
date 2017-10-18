@@ -2,7 +2,7 @@
 - name: Downloading Grafana docker image
   become: true
   docker_image:
-    name: grafana/grafana:latest
+    name: grafana/grafana:4.5.2
     state: present
 
 - name: Create Share Folder 1/2
@@ -23,7 +23,7 @@
   become: true
   docker_container:
     name: grafana
-    image: grafana/grafana:latest
+    image: grafana/grafana:4.5.2
     restart_policy: unless-stopped
     volumes:
       - "/home/docker_share/grafana/:/etc/grafana/:rw"

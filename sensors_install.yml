@@ -2,14 +2,14 @@
 - name: Downloading SensorsDocker image
   become: true
   docker_image:
-    name: shakapark/sensorsdocker:latest
+    name: shakapark/sensorsdocker:1.0
     state: present
 
 - name: Start Sensors Container
   become: true
   docker_container:
     name: sensors
-    image: shakapark/sensorsdocker:latest
+    image: shakapark/sensorsdocker:1.0
     restart_policy: unless-stopped
     volumes:
       - "/home/docker_share/node_exporter:/home/node-exporter:rw"

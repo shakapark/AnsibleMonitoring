@@ -2,7 +2,7 @@
 - name: Downloading Snmp-Exporter image
   become: true
   docker_image:
-    name: quay.io/prometheus/snmp-exporter:latest
+    name: quay.io/prometheus/snmp-exporter:v0.7.0
     state: present
 
 - name: Create Share Folder
@@ -16,7 +16,7 @@
   become: true
   docker_container:
     name: snmp
-    image: quay.io/prometheus/snmp-exporter:latest
+    image: quay.io/prometheus/snmp-exporter:v0.7.0
     restart_policy: unless-stopped
     published_ports: 9116:9116
     volumes:

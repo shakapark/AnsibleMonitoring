@@ -2,7 +2,7 @@
 - name: Downloading Node-Exporter docker image
   become: true
   docker_image:
-    name: quay.io/prometheus/node-exporter:latest
+    name: quay.io/prometheus/node-exporter:v0.15.0
     state: present
 
 - name: Create Share Folder
@@ -16,7 +16,7 @@
   become: true
   docker_container:
     name: node-exporter
-    image: quay.io/prometheus/node-exporter:latest
+    image: quay.io/prometheus/node-exporter:v0.15.0
     restart_policy: unless-stopped
     network_mode: host
     volumes: 

@@ -2,7 +2,7 @@
 - name: Downloading Prometheus docker image
   become: true
   docker_image:
-    name: quay.io/prometheus/prometheus:latest
+    name: quay.io/prometheus/prometheus:v1.8.0
     state: present
 
 - name: Create Share Folder 1/2
@@ -30,7 +30,7 @@
   become: true
   docker_container:
     name: prometheus
-    image: quay.io/prometheus/prometheus:latest
+    image: quay.io/prometheus/prometheus:v1.8.0
     volumes: 
       - "/home/docker_share/prometheus/:/etc/prometheus/:rw"
       - "/home/docker_share/data/prometheus/:/prometheus/:rw"
