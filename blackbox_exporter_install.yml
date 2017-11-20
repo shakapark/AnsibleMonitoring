@@ -1,0 +1,35 @@
+---
+- name: Downloading Blackbox docker image
+  become: true
+  docker_image:
+    name: quay.io/prometheus/blackbox-exporter:v0.10.0
+    state: present
+
+- name: Create Share Folder
+  become: true
+  file:
+    path: /home/docker_share/blackbox
+    owner: "{{ ansible_user }}"
+    mode: 0775
+    state: directory
+
+- name: Copie conf file for Blackbox
+  become: true
+  template:
+    src: conf/blackbox/blackbox.yml
+    dest: /home/docker_share/blackbox/blackbox.yml
+    owner: "{{ ansible_user }}"
+    mode: 0775
+
+- name: Start Blackbox Container
+  become: true
+  docker_container:
+    name: blackbox
+    image: quay.io/prometheus/blackbox-exporter:v0.10.0
+    volumes:
+      - "/home/docker_share/blackbox/:/config/:rw"
+    restart_policy: unless-stopped
+    published_ports: 9115:9115
+    command: --config.file=/config/blackbox.yml
+    state: started
+

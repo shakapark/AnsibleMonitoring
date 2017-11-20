@@ -20,3 +20,24 @@ scrape_configs:
    static_configs:
      - targets: ['IpHost:8090','IpNode1:8090',...]
 
+ - job_name: blacbox
+   metrics_path: /probe
+    params:
+      module: [BlackBoxModuleName(blackbox.yml)]
+    static_configs:
+      - targets:
+        - target1
+        - target2
+        - target3
+        #...
+    relabel_configs:
+      - source_labels: [__address__]
+        #regex: (.*)(:80)?
+        target_label: __param_target
+        #replacement: ${1}
+      - source_labels: [__param_target]
+        #regex: (.*)
+        target_label: instance
+        #replacement: ${1}
+      - target_label: __address__
+        replacement: IpHost:9115 
