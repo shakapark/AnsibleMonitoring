@@ -2,14 +2,14 @@
 - name: Downloading cAdvisor docker image
   become: true
   docker_image:
-   name: google/cadvisor:v0.27.1
+   name: google/cadvisor:v0.25.0
    state: present
 
 - name: Start cAdvisor Container
   become: true
   docker_container:
     name: cadvisor
-    image: google/cadvisor:v0.27.1
+    image: google/cadvisor:v0.25.0
     restart_policy: unless-stopped
     published_ports: 8090:8080
     volumes: 
