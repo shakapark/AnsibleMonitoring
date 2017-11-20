@@ -52,6 +52,6 @@
   become: true
   file:
     path: /home/docker_share
-    owner: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
     mode: 0775
     state: directory

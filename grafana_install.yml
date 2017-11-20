@@ -9,7 +9,8 @@
   become: true
   file:
     path: /home/docker_share/grafana
-    mode: 0755
+    owner: "{{ ansible_user }}"
+    mode: 0775
     state: directory
 
 - name: Create Share Folder 2/2
@@ -42,7 +43,8 @@
   template:
     src: conf/grafana/grafana.ini
     dest: /home/docker_share/grafana/grafana.ini
-    mode: 0644
+    owner: "{{ ansible_user }}"
+    mode: 0775
 
 - name: Restarting Grafana
   become: true
