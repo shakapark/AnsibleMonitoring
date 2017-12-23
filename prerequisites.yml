@@ -1,8 +1,8 @@
 ---
-- name: Installing wget
+- name: Installing curl
   become: true
   apt:
-    name: wget
+    name: curl
     state: present
 
 - name: Installing Python Pip
@@ -11,43 +11,30 @@
     name: python-pip
     state: present
 
-- name: Checking if Docker is installed
-  shell: which docker
-  register: has_docker
-  ignore_errors: yes
-
-- name: Installing latest Docker
-  shell: "wget -qO- https://get.docker.io | bash"
+- name: Installing apt-transport-https 
   become: true
-  when: has_docker|failed
+  apt:
+    name: apt-transport-https
+    state: present
 
-- name: Adding current user to the Docker group
+- name: Installing ca-certificates
   become: true
-  user:
-    name: "{{ ansible_user }}"
-    append: yes
-    groups: docker
-  when: has_docker|failed
+  apt:
+    name: ca-certificates
+    state: present
 
-- name: Configuring Docker (systemd)
+- name: Installing gnupg2
   become: true
-  ini_file:
-    dest: /lib/systemd/system/docker.service
-    section: Service
-    option: ExecStart
-    value: "/usr/bin/dockerd"
-    backup: yes
+  apt:
+    name: gnupg2
+    state: present
 
-- name: Restarting Docker
+- name: Installing software-properties-common
   become: true
-  service:
-    name: docker
-    state: restarted
+  apt:
+    name: software-properties-common
+    state: present
 
-- name: Install docker-py
-  become: true
-  shell: "pip install docker-py"
-    
 - name: Create Share Folder
   become: true
   file:

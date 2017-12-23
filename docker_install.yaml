@@ -1,0 +1,61 @@
+---
+- name: Checking if Docker is installed
+  shell: which docker
+  register: has_docker
+  ignore_errors: yes
+
+- name: Get OS
+  shell: ". /etc/os-release; echo $ID"
+  register: os
+  when: has_docker|failed
+
+- name: Get Release
+  shell: "lsb_release -cs"
+  register: release
+  when: has_docker|failed
+
+- name: Add Apt Key
+  shell: 'curl -fsSL https://download.docker.com/linux/{{ os.stdout }}/gpg | sudo apt-key add -'
+  become: true
+  when: has_docker|failed
+
+- name: Add Docker Repository
+  shell: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/{{ os.stdout }} {{ release.stdout }} stable"'
+  become: true
+  when: has_docker|failed
+
+- name: Installing latest Docker
+  become: true
+  apt:
+    update_cache: yes
+    name: docker-ce
+    state: present
+  when: has_docker|failed
+
+- name: Adding current user to the Docker group
+  become: true
+  user:
+    name: "{{ ansible_user }}"
+    append: yes
+    groups: docker
+  when: has_docker|failed
+
+- name: Configuring Docker (systemd)
+  become: true
+  ini_file:
+    dest: /lib/systemd/system/docker.service
+    section: Service
+    option: ExecStart
+    value: "/usr/bin/dockerd"
+    backup: yes
+
+- name: Restarting Docker
+  become: true
+  service:
+    name: docker
+    state: restarted
+
+- name: Install docker-py
+  become: true
+  shell: "pip install docker-py"
+
