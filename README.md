@@ -7,7 +7,6 @@ The Optional dockers are use to get metrics on the machine :
 - Node-Exporter : Get hardware metrics of the machine 
 - Node-Exporter Service : Get state about Systemd
 - SensorsDocker : Get temperature of processor
-- Snmp Exporter : Get results of snmp request (NOT IMPLEMENTED YET)
 
 Prometheus collect those metrics and add a system of request
 
@@ -20,7 +19,6 @@ Grafana use prometheus requests to create graphs.
 | cAdvisor  | https://github.com/google/cadvisor |
 | Node-Exporter |  https://github.com/prometheus/node_exporter |
 | SensorsDocker | https://github.com/Shakapark/SensorsDocker |
-| Snmp Exporter | https://github.com/prometheus/snmp_exporter |
 | Prometheus | https://github.com/prometheus/prometheus |
 | Grafana | https://github.com/grafana/grafana |
 
@@ -108,7 +106,7 @@ scrape_configs:
 
 You can change too the grafana configuration ("grafana.ini")
 
-The ports 3000 (grafana), 8090 (cAdvisor), 9090 (Prometheus), 9100 (Node-exporter), 9110 (Node-exporter Service), 9116 (Snmp-Exporter) are use by this system, make sure thy are free, if needed, you can change the port use by a docker in the install file of it. Example for cAdvisor (*cadvisor_install.yml*):
+The ports 3000 (grafana), 8090 (cAdvisor), 9090 (Prometheus), 9100 (Node-exporter), 9110 (Node-exporter Service) are use by this system, make sure thy are free, if needed, you can change the port use by a docker in the install file of it. Example for cAdvisor (*cadvisor_install.yml*):
 ~~~ shell
 restart_policy: unless-stopped
 #published_ports: 8090:8080    #ExternePort:InternPort
