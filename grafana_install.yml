@@ -43,4 +43,4 @@
 - name: Restarting Grafana
   become: true
   command: docker restart grafana
-  
+
