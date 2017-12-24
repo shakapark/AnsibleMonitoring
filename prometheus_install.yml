@@ -1,10 +1,4 @@
 ---
-- name: Downloading Prometheus docker image
-  become: true
-  docker_image:
-    name: quay.io/prometheus/prometheus:v1.8.0
-    state: present
-
 - name: Create Share Folder 1/2
   become: true
   file:
@@ -17,7 +11,8 @@
   become: true
   file:
     path: /home/docker_share/data/prometheus
-    mode: 0755
+    mode: 0775
+    owner: "{{ ansible_user }}"
     state: directory
 
 - name: Copie conf file for Prometheus
@@ -32,10 +27,12 @@
   become: true
   docker_container:
     name: prometheus
-    image: quay.io/prometheus/prometheus:v1.8.0
+    image: quay.io/prometheus/prometheus:v2.0.0
+    user: 1000:2000
     volumes: 
-      - "/home/docker_share/prometheus/:/etc/prometheus/:rw"
-      - "/home/docker_share/data/prometheus/:/prometheus/:rw"
+      - "/home/docker_share/prometheus:/etc/prometheus:rw"
+      - "/home/docker_share/data/prometheus:/prometheus:rw"
     restart_policy: unless-stopped
     published_ports: 9090:9090
+    command: "--web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.console.libraries=/usr/share/prometheus/console_libraries --web.console.templates=/usr/share/prometheus/consoles"
     state: started
