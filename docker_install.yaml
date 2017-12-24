@@ -48,12 +48,14 @@
     option: ExecStart
     value: "/usr/bin/dockerd"
     backup: yes
+  when: has_docker|failed
 
 - name: Restarting Docker
   become: true
   service:
     name: docker
     state: restarted
+  when: has_docker|failed
 
 - name: Install docker-py
   become: true
