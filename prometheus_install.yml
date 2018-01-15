@@ -22,6 +22,7 @@
     dest: /home/docker_share/prometheus/prometheus.yml
     owner: "{{ ansible_user }}"
     mode: 0775
+    force: no
 
 - name: Start Prometheus Container
   become: true

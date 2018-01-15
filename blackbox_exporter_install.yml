@@ -20,6 +20,7 @@
     dest: /home/docker_share/blackbox/blackbox.yml
     owner: "{{ ansible_user }}"
     mode: 0775
+    force: no
 
 - name: Start Blackbox Container
   become: true
