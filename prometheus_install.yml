@@ -29,7 +29,7 @@
   docker_container:
     name: prometheus
     image: quay.io/prometheus/prometheus:v2.0.0
-    user: 1000:2000
+    user: {{ ansible_user }}
     volumes: 
       - "/home/docker_share/prometheus:/etc/prometheus:rw"
       - "/home/docker_share/data/prometheus:/prometheus:rw"
