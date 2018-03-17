@@ -1,10 +1,4 @@
 ---
-- name: Downloading cAdvisor docker image
-  become: true
-  docker_image:
-   name: google/cadvisor:v0.25.0
-   state: present
-
 - name: Start cAdvisor Container
   become: true
   docker_container:

@@ -1,10 +1,4 @@
 ---
-- name: Downloading Node-Exporter docker image
-  become: true
-  docker_image:
-    name: quay.io/prometheus/node-exporter:v0.14.0
-    state: present
-
 - name: Start Node-Exporter-Service Container
   become: true
   docker_container:

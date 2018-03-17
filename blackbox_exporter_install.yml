@@ -1,10 +1,4 @@
 ---
-- name: Downloading Blackbox docker image
-  become: true
-  docker_image:
-    name: quay.io/prometheus/blackbox-exporter:v0.10.0
-    state: present
-
 - name: Create Share Folder
   become: true
   file:

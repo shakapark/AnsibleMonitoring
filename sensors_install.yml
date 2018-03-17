@@ -1,10 +1,4 @@
 ---
-- name: Downloading SensorsDocker image
-  become: true
-  docker_image:
-    name: shakapark/sensorsdocker:1.0
-    state: present
-
 - name: Start Sensors Container
   become: true
   docker_container:
