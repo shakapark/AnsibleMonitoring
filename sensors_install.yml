@@ -10,7 +10,7 @@
   docker_container:
     name: sensors
     image: shakapark/sensorsdocker:1.0
-    restart_policy: unless-stopped
+    restart_policy: always
     volumes:
       - "/home/docker_share/node_exporter:/home/node-exporter:rw"
     state: started

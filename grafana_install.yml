@@ -19,7 +19,7 @@
   docker_container:
     name: grafana
     image: grafana/grafana:5.0.3
-    restart_policy: unless-stopped
+    restart_policy: always
     volumes:
       - "/home/docker_share/grafana/:/etc/grafana/:rw"
       - "/home/docker_share/data/grafana/:/var/lib/grafana/:rw"

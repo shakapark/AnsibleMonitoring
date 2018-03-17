@@ -32,7 +32,7 @@
     volumes: 
       - "/home/docker_share/prometheus:/etc/prometheus:rw"
       - "/home/docker_share/data/prometheus:/prometheus:rw"
-    restart_policy: unless-stopped
+    restart_policy: always
     published_ports: 9090:9090
     command: "--web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --web.console.libraries=/usr/share/prometheus/console_libraries --web.console.templates=/usr/share/prometheus/consoles"
     state: started

@@ -10,7 +10,7 @@
   docker_container:
     name: cadvisor
     image: google/cadvisor:v0.25.0
-    restart_policy: unless-stopped
+    restart_policy: always
     published_ports: 8090:8080
     volumes: 
       - "/var/run:/var/run:rw"

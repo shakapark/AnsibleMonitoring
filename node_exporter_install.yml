@@ -17,7 +17,7 @@
   docker_container:
     name: node-exporter
     image: quay.io/prometheus/node-exporter:v0.15.0
-    restart_policy: unless-stopped
+    restart_policy: always
     network_mode: host
     volumes: 
       - "/proc:/host/proc:ro"

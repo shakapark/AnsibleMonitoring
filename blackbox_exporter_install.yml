@@ -28,7 +28,7 @@
     image: quay.io/prometheus/blackbox-exporter:v0.10.0
     volumes:
       - "/home/docker_share/blackbox/:/config/:rw"
-    restart_policy: unless-stopped
+    restart_policy: always
     published_ports: 9115:9115
     command: --config.file=/config/blackbox.yml
     state: started
