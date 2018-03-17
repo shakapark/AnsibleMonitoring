@@ -26,7 +26,7 @@
   become: true
   docker_container:
     name: blackbox
-    image: quay.io/prometheus/blackbox-exporter:v0.10.0
+    image: quay.io/prometheus/blackbox-exporter:v0.12.0
     volumes:
       - "/home/docker_share/blackbox/:/config/:rw"
     restart_policy: always
