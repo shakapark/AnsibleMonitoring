@@ -14,6 +14,24 @@
     mode: 0755
     state: directory
 
+- name: Configuration Grafana 1/2
+  become: true
+  copy:
+    src: conf/grafana/grafana_modele.db
+    dest: /home/docker_share/data/grafana/grafana.db
+    owner: "{{ ansible_user }}"
+    mode: 0775
+    force: no
+
+- name: Configuration Grafana 2/2
+  become: true
+  template:
+    src: conf/grafana/grafana.ini
+    dest: /home/docker_share/grafana/grafana.ini
+    owner: "{{ ansible_user }}"
+    mode: 0775
+    force: no
+
 - name: Start Grafana Container
   become: true
   docker_container:
@@ -25,22 +43,4 @@
       - "/home/docker_share/data/grafana/:/var/lib/grafana/:rw"
     published_ports: 3000:3000
     state: started
-
-- name: Configuration Grafana 1/2
-  become: true
-  copy:
-    src: conf/grafana/grafana_modele.db
-    dest: /home/docker_share/data/grafana/grafana.db
-
-- name: Configuration Grafana 2/2
-  become: true
-  template:
-    src: conf/grafana/grafana.ini
-    dest: /home/docker_share/grafana/grafana.ini
-    owner: "{{ ansible_user }}"
-    mode: 0775
-
-- name: Restarting Grafana
-  become: true
-  command: docker restart grafana
 

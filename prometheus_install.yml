@@ -22,13 +22,14 @@
     dest: /home/docker_share/prometheus/prometheus.yml
     owner: "{{ ansible_user }}"
     mode: 0775
+    force: no
 
 - name: Start Prometheus Container
   become: true
   docker_container:
     name: prometheus
     image: quay.io/prometheus/prometheus:v2.0.0
-    user: 1000:2000
+    user: {{ ansible_user }}
     volumes: 
       - "/home/docker_share/prometheus:/etc/prometheus:rw"
       - "/home/docker_share/data/prometheus:/prometheus:rw"
